@@ -1,6 +1,17 @@
 from django.db import models
 
 
+class Tag(models.Model):
+    name = models.CharField(verbose_name='Название', max_length=255)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = 'Тег блога'
+        verbose_name_plural = 'Теги блога'
+
+
 class BlogCategory(models.Model):
     name = models.CharField(verbose_name='Название', max_length=255)
 
@@ -13,6 +24,11 @@ class BlogCategory(models.Model):
 
 
 class Article(models.Model):
+    tag = models.ManyToManyField(
+        to=Tag,
+        verbose_name='Тег',
+        blank=True
+    )
     category = models.ForeignKey(
         to=BlogCategory,
         verbose_name='Категория',
