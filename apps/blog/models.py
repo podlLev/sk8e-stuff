@@ -26,7 +26,7 @@ class BlogCategory(models.Model):
 class Article(models.Model):
     tag = models.ManyToManyField(
         to=Tag,
-        verbose_name='Тег',
+        verbose_name='Теги',
         blank=True
     )
     category = models.ForeignKey(
