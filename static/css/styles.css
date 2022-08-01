@@ -17,5 +17,5 @@
     transform: scale(1.03, 1.03);
 }
 .blog-item:hover h4 a{
-    color: purple;
+    color: orangered;
 }
