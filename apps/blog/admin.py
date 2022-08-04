@@ -5,7 +5,21 @@ from django.utils.html import format_html
 from django.utils.http import urlencode
 
 
-admin.site.register(Tag)
+@admin.register(Tag)
+class TagAdmin(admin.ModelAdmin):
+    list_display = ['id', 'name', 'article_list_link']
+    list_display_links = ['id', 'name']
+
+    def article_list_link(self, obj):
+        count = Article.objects.filter(tags__in=[obj.id]).count()
+        url = (
+            reverse('admin:blog_article_changelist')
+            + '?'
+            + urlencode({'tags__id': obj.id, 'tags__id__exact': obj.id})
+        )
+        return format_html(f"<a href='{url}'>Статьи(ей): {count}</a>")
+
+    article_list_link.short_description = 'Статьи'
 
 
 @admin.register(BlogCategory)
@@ -29,7 +43,7 @@ class BlogCategoryAdmin(admin.ModelAdmin):
 
 @admin.register(Article)
 class ArticleAdmin(admin.ModelAdmin):
-    list_display = ['id', 'title', 'image_tag_thumbnail', 'category_link', 'created_at']
+    list_display = ['id', 'title', 'image_tag_thumbnail', 'category_link', 'tag_links', 'created_at']
     list_display_links = ['id', 'title', 'image_tag_thumbnail']
     fields = ['category', 'image_tag', 'image', 'tags', 'title', 'text_preview', 'text']
     readonly_fields = ['image_tag']
@@ -41,3 +55,12 @@ class ArticleAdmin(admin.ModelAdmin):
             return format_html(f"<a href='{url}'>{obj.category.name}</a>")
 
     category_link.short_description = 'Категория'
+
+    def tag_links(self, obj):
+        format_string = []
+        for tag in obj.tags.all():
+            url = reverse('admin:blog_tag_change', args=[tag.id])
+            format_string.append(f"<a href='{url}'>{tag.name}</a>")
+        return format_html(', '.join(format_string))
+
+    tag_links.short_description = 'Теги'
