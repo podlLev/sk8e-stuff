@@ -43,9 +43,9 @@ class BlogCategoryAdmin(admin.ModelAdmin):
 
 @admin.register(Article)
 class ArticleAdmin(admin.ModelAdmin):
-    list_display = ['id', 'title', 'image_tag_thumbnail', 'category_link', 'tag_links', 'created_at']
+    list_display = ['id', 'title', 'image_tag_thumbnail', 'user_link', 'category_link', 'tag_links', 'created_at']
     list_display_links = ['id', 'title', 'image_tag_thumbnail']
-    fields = ['category', 'image_tag', 'image', 'tags', 'title', 'text_preview', 'text']
+    fields = ['category', 'image_tag', 'image', 'tags', 'user', 'title', 'text_preview', 'text']
     readonly_fields = ['image_tag']
     list_filter = ['category', 'tags']
 
@@ -55,6 +55,13 @@ class ArticleAdmin(admin.ModelAdmin):
             return format_html(f"<a href='{url}'>{obj.category.name}</a>")
 
     category_link.short_description = 'Категория'
+
+    def user_link(self, obj):
+        if obj.user:
+            url = reverse('admin:user_user_change', args=[obj.user.id])
+            return format_html(f"<a href='{url}'>{obj.user.username}</a>")
+
+    user_link.short_description = 'Автор'
 
     def tag_links(self, obj):
         format_string = []
