@@ -60,7 +60,7 @@ class ArticleAdmin(admin.ModelAdmin):
         format_string = []
         for tag in obj.tags.all():
             url = reverse('admin:blog_tag_change', args=[tag.id])
-            format_string.append(f"<a href='{url}'>{tag.name}</a>")
+            format_string.append(f"<a href='{url}'>#{tag.name}</a>")
         return format_html(', '.join(format_string))
 
     tag_links.short_description = 'Теги'
