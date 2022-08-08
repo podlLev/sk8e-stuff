@@ -5,6 +5,10 @@
         <img class="img-thumbnail" src="{{ article.image.url }}" alt="">
     {% endif %}
     <p>{{ article.text }}</p>
+    {% if article.user.image_thumbnail %}
+        <img class="img-thumbnail" src="{{ article.user.image_thumbnail.url }}" alt="">
+    {% endif %}
+    <p><b>{{ article.user.first_name }} {{ article.user.last_name }}</b></p>
     <p>
         {% for tag in article.tags.all %}
             <a href="{% url 'tag_article_list' tag_id=tag.id %}">#{{ tag.name }}</a>
