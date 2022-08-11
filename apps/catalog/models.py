@@ -30,7 +30,7 @@ class Category(MPTTModel):
 
     def image_tag_thumbnail(self):
         if self.image:
-            return mark_safe(f"<img src='/{MEDIA_ROOT}{self.image}' width=70>")
+            return mark_safe(f"<img src='/{MEDIA_ROOT}{self.image}' width='70'>")
 
     image_tag_thumbnail.short_description = 'Текущее изображение'
     image_tag_thumbnail.allow_tags = True

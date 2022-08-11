@@ -31,7 +31,7 @@ class BlogCategory(models.Model):
 
     def image_tag_thumbnail(self):
         if self.image:
-            return mark_safe(f"<img src='/{MEDIA_ROOT}{self.image}' width=70>")
+            return mark_safe(f"<img src='/{MEDIA_ROOT}{self.image}' width='70'>")
 
     image_tag_thumbnail.short_description = 'Текущее изображение'
     image_tag_thumbnail.allow_tags = True
@@ -93,7 +93,7 @@ class Article(models.Model):
         if self.image:
             if not self.image_thumbnail:
                 Article.objects.get(id=self.id)
-            return mark_safe(f"<img src='/{MEDIA_ROOT}{self.image_thumbnail}' width=70>")
+            return mark_safe(f"<img src='/{MEDIA_ROOT}{self.image_thumbnail}' width='70'>")
 
     image_tag_thumbnail.short_description = 'Текущее изображение'
     image_tag_thumbnail.allow_tags = True

@@ -28,7 +28,7 @@ class User(AbstractUser):
         if self.image:
             if not self.image_thumbnail:
                 User.objects.get(id=self.id)
-            return mark_safe(f"<img src='/{MEDIA_ROOT}{self.image_thumbnail}' width=45>")
+            return mark_safe(f"<img src='/{MEDIA_ROOT}{self.image_thumbnail}' width='45'>")
 
     image_tag_thumbnail.short_description = 'Текущее изображение'
     image_tag_thumbnail.allow_tags = True
