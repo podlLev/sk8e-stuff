@@ -95,6 +95,11 @@ class Image(models.Model):
     def __str__(self):
         return ''
 
+    def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
+        if self.is_main:
+            Image.objects.filter(product=self.product).update(is_main=False)
+        super(Image, self).save(force_insert, force_update, using, update_fields)
+
 
 class Product(models.Model):
     name = models.CharField(verbose_name='Название', max_length=255)
