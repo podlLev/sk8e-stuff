@@ -28,10 +28,18 @@
 <div class="page-header">
     <div class="container">
         <div class="row bg-warning">
-            <div class="col-6">
+            <div class="col-3">
                 <a href="{% url 'home' %}">
                     <img src="{% static 'logo.png' %}" alt="Sk8e-Stuff" title="Sk8e-Stuff" id="logo">
                 </a>
+            </div>
+            <div class="col-3">
+                <br>
+                {% if request.user.is_authenticated %}
+                    <p class="text-end">Привет, {{ request.user.username }} (<a href="{% url 'logout' %}">Выйти</a>)</p>
+                {% else %}
+                    <p class="text-end"><a href="{% url 'login' %}?next={{ request.path }}">Войти</a></p>
+                {% endif %}
             </div>
             <div class="col-6">
                 <br>
