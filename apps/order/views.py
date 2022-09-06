@@ -4,6 +4,11 @@ from apps.order.forms import AddToCartForm
 from apps.order.models import Cart
 
 
+@login_required
+def cart_product_list(request):
+    return render(request, 'order/view.html', {'cart': get_cart_data(request.user)})
+
+
 def get_cart_data(user):
     cart = Cart.objects.filter(user=user)
     total = 0
@@ -12,7 +17,7 @@ def get_cart_data(user):
     return {'cart': cart, 'total': total}
 
 
-@login_required()
+@login_required
 def add_to_cart(request):
     data = request.GET.copy()
     data.update(user=request.user)
