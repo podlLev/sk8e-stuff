@@ -23,7 +23,7 @@ def user_login(request):
                 error = 'Неправильные логин или пароль'
     else:
         form = LoginForm()
-    return render(request, 'user/login.html', {'form': form, 'error': error})
+    return render(request, 'user/login.html', {'form': form, 'error': error, 'breadcrumbs': {'current': 'Вход'}})
 
 
 def user_logout(request):
@@ -40,9 +40,11 @@ def user_register(request):
             user = form.save(commit=False)
             user.set_password(form.cleaned_data['password'])
             user.save()
-            return render(request, 'user/welcome.html', {'user': user, 'next_page': next_page})
+            return render(request, 'user/welcome.html',
+                          {'user': user, 'next_page': next_page, 'breadcrumbs': {'current': 'Успешная регистрация'}})
         error = form.errors
     else:
         form = RegisterForm()
-    return render(request, 'user/register.html', {'form': form, 'error': error})
+    return render(request, 'user/register.html',
+                  {'form': form, 'error': error, 'breadcrumbs': {'current': 'Регистрация'}})
 

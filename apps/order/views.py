@@ -6,7 +6,8 @@ from apps.order.models import Cart
 
 @login_required
 def cart_product_list(request):
-    return render(request, 'order/view.html', {'cart': get_cart_data(request.user)})
+    return render(request, 'order/view.html',
+                  {'cart': get_cart_data(request.user), 'breadcrumbs': {'current': 'Корзина'}})
 
 
 def get_cart_data(user):
@@ -33,7 +34,11 @@ def add_to_cart(request):
             else:
                 form.save()
             request.session['cart_token'] = data.get('csrfmiddlewaretoken')
-        return render(request, 'order/added.html', {'product': cd['product'], 'cart': get_cart_data(cd['user'])})
+        return render(
+            request,
+            'order/added.html',
+            {'product': cd['product'], 'cart': get_cart_data(cd['user']), 'breadcrumbs': {'current': 'Товар добавлен'}}
+        )
     print(form.errors)
 
 
@@ -54,7 +59,7 @@ def create_order(request):
         if form.is_valid():
             form.save()
             Cart.objects.filter(user=user).delete()
-            return render(request, 'order/created.html')
+            return render(request, 'order/created.html', {'breadcrumbs': {'current': 'Заказ оформлен'}})
         error = form.errors
     else:
         form = CreateOrderForm(data={
@@ -63,4 +68,5 @@ def create_order(request):
             'email': user.email if user.email else '',
             'phone': user.phone if user.phone else '',
         })
-    return render(request, 'order/create.html', {'cart': cart, 'form': form, 'error': error})
+    return render(request, 'order/create.html',
+                  {'cart': cart, 'form': form, 'error': error, 'breadcrumbs': {'current': 'Оформление заказа'}})
