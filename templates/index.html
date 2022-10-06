@@ -1,7 +1,14 @@
 {% extends 'base.html' %}
+
 {% block meta_tags %}
     {% include '_meta_tags.html' with meta_title='Главная' %}
 {% endblock %}
+
 {% block content %}
     <h1>Приветствую тебя на главной странице <b>Sk8e-Stuff!</b></h1>
+
+    {% for product_set in product_sets %}
+        {% include 'main/_product_set.html' %}
+    {% endfor %}
+
 {% endblock %}
