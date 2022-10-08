@@ -121,3 +121,21 @@ class Article(MetaTagMixin):
     class Meta:
         verbose_name = 'Статья'
         verbose_name_plural = 'Статьи'
+
+
+class Comment(models.Model):
+    user = models.ForeignKey(to=User, verbose_name='Автор комментария', on_delete=models.CASCADE, null=True, blank=True)
+    article = models.ForeignKey(to=Article, verbose_name='Статья', on_delete=models.CASCADE)
+    name = models.CharField(verbose_name='Имя', max_length=255)
+    email = models.EmailField(verbose_name='E-mail')
+    text = models.TextField(verbose_name='Текст')
+    is_checked = models.BooleanField(verbose_name='Проверено', default=False)
+    created_at = models.DateTimeField(verbose_name='Дата создания', auto_now_add=True)
+
+    class Meta:
+        ordering = ['-created_at']
+        verbose_name = 'Комментарий'
+        verbose_name_plural = 'Комментарии'
+
+    def __str__(self):
+        return self.name
