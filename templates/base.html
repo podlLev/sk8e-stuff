@@ -34,7 +34,7 @@
         <div class="row bg-warning">
             <div class="col-3">
                 <a href="{% url 'home' %}">
-                    <img src="{% static 'logo.png' %}" alt="Sk8e-Stuff" title="Sk8e-Stuff" id="logo">
+                    <img src="{{ SETTINGS.logo.url }}" alt="Sk8e-Stuff" title="Sk8e-Stuff" id="logo">
                 </a>
             </div>
             <div class="col-3">
@@ -138,7 +138,7 @@
                 <hr>
             </div>
             <div class="col">
-                <p class="text-center text-info">Все права защищены, правда неизвестно кем)</p>
+                <p class="text-center text-info">{{ SETTINGS.footer_text }}</p>
             </div>
         </div>
     </div>
