@@ -1,10 +1,15 @@
 <p align="center">
   <img src="static/logo.png" alt="sk8e-stuff logo" width="200">
 </p>
-
 <h1 align="center">sk8e-stuff</h1>
-
 <p align="center">A Django e-commerce site for a skate shop — catalog, cart, blog, and a REST API.</p>
+<p align="center">
+  <img src="https://img.shields.io/badge/Django-3.2-092E20?logo=django&logoColor=white" alt="Django 3.2">
+  <img src="https://img.shields.io/badge/DRF-REST%20API-A30000?logo=django&logoColor=white" alt="Django REST Framework">
+  <img src="https://img.shields.io/badge/PostgreSQL-Database-4169E1?logo=postgresql&logoColor=white" alt="PostgreSQL">
+  <img src="https://img.shields.io/badge/Python-3.x-3776AB?logo=python&logoColor=white" alt="Python">
+  <img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT">
+</p>
 
 ---
 
